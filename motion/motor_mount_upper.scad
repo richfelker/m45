@@ -16,135 +16,130 @@ linear_extrude(height=h,center=center,convexity=3)
 tdcircle(d=d,a=a,f=f);
 }
 
-
-
 module motormount() {
 
+	translate([0,0,-8.8])
+	difference() {
 
-translate([0,0,-8.8])
-difference() {
+		union(){
+			intersection() {
+				union() {
+					// motor
+					%translate([motor_offset+2,42/2,0])
+					rotate([0,90,0])
+					cylinder(d=5,h=18);
+					%translate([motor_offset,42/2,0])
+					rotate([0,90,0])
+					cylinder(d=22,h=2);
 
-union(){
-intersection() {
-union() {
-// motor
-%translate([motor_offset+2,42/2,0])
-rotate([0,90,0])
-cylinder(d=5,h=18);
-%translate([motor_offset,42/2,0])
-rotate([0,90,0])
-cylinder(d=22,h=2);
+					// pseudo pulley
+					%translate([3,42/2,0])
+					rotate([0,90,0])
+					pulley();
 
-// pseudo pulley
-%translate([3,42/2,0])
-rotate([0,90,0])
-pulley();
+					// double shear bearing
+					%translate([19,42/2,0])
+					rotate([0,90,0])
+					cylinder(d=13,h=4);
 
-// double shear bearing
-%translate([19,42/2,0])
-rotate([0,90,0])
-cylinder(d=13,h=4);
+					// bottom
+					translate([-20,-8,-42/2])
+					cube([20+2+22+2,8-0.2,42]);
 
-// bottom
-translate([-20,-8,-42/2])
-cube([20+2+22+2,8-0.2,42]);
+					// main block
+					difference() {
+						translate([motor_offset,-8,-42/2])
+						cube([2+22+2-motor_offset,42+8,42]);
+						translate([18,42/2+2,-22.2/2])
+						cube([6,10,22.2]);
+					}
+				}
 
-// main block
-difference() {
-translate([motor_offset,-8,-42/2])
-cube([2+22+2-motor_offset,42+8,42]);
-translate([18,42/2+2,-22.2/2])
-cube([6,10,22.2]);
-}
-}
+				linear_extrude(height=100,center=true,convexity=3)
+				polygon([
+					[-36,-8],[2+22+2,-8],[2+22+2,42/2],
+					[6+1.5,42-6],[6+1.5,42],[1.5,42],[1.5,0],[-36,0]
+				]);
+			}
+			// bearing holder
+			translate([19,42/2,0])
+			rotate([0,90,0])
+			cylinder(d=18,h=6);
 
-linear_extrude(height=100,center=true,convexity=3)
-polygon([
-	[-36,-8],[2+22+2,-8],[2+22+2,42/2],
-	[6+1.5,42-6],[6+1.5,42],[1.5,42],[1.5,0],[-36,0]
-]);
-
-}
-// bearing holder
-translate([19,42/2,0])
-rotate([0,90,0])
-cylinder(d=18,h=6);
-
-// second top column mount point
-translate([-10,0-0.2,-42/2-2])
-rotate([90,0,0])
-linear_extrude(height=8-0.2,convexity=3)
-hull() {
-translate([-10,2]) square([20,1]);
-circle(d=14);
-}
-}
+			// second top column mount point
+			translate([-10,0-0.2,-42/2-2])
+			rotate([90,0,0])
+			linear_extrude(height=8-0.2,convexity=3)
+			hull() {
+			translate([-10,2]) square([20,1]);
+			circle(d=14);
+			}
+		}
 
 
-// belt hole
-translate([0,-10,-22.2/2])
-cube([14,10+21,22.2]);
+		// belt hole
+		translate([0,-10,-22.2/2])
+		cube([14,10+21,22.2]);
 
-// pulley access hole
-hull() for (y=[0,100])
-translate([motor_offset+6,42/2+y,0])
-rotate([0,90,0])
-cylinder(d=22.2,h=19-(motor_offset+6));
+		// pulley access hole
+		hull() for (y=[0,100])
+		translate([motor_offset+6,42/2+y,0])
+		rotate([0,90,0])
+		cylinder(d=22.2,h=19-(motor_offset+6));
 
-// bearing hole
-translate([19-1,42/2,0])
-rotate([0,90,0]) {
-	tdcyl(d=13,h=4+1,f=1.5);
-	translate([0,0,-5])
-	cylinder(d=9,h=15);
-}
-// bearing access
-*translate([2+22-7,42/2,-22.2/2])
-cube([10,100,22.2]);
+		// bearing hole
+		translate([19-1,42/2,0])
+		rotate([0,90,0]) {
+			tdcyl(d=13,h=4+1,f=1.5);
+			translate([0,0,-5])
+			cylinder(d=9,h=15);
+		}
+		// bearing access
+		*translate([2+22-7,42/2,-22.2/2])
+		cube([10,100,22.2]);
 
-// chamfers
-for (x=[-20,2+22+2],z=[-42/2,42/2])
-if (x>0 || z>0)
-translate([x,0,z])
-rotate([0,45,0])
-cube(sqrt(2)*[4,100,4],center=true);
-for (z=[-42/2,42/2])
-translate([0,42,z])
-rotate([45,0,0])
-cube(sqrt(2)*[100,4,4],center=true);
+		// chamfers
+		for (x=[-20,2+22+2],z=[-42/2,42/2])
+		if (x>0 || z>0)
+		translate([x,0,z])
+		rotate([0,45,0])
+		cube(sqrt(2)*[4,100,4],center=true);
+		for (z=[-42/2,42/2])
+		translate([0,42,z])
+		rotate([45,0,0])
+		cube(sqrt(2)*[100,4,4],center=true);
 
-// panel
-translate([2+22,-8,0])
-hull() {
-	translate([0,0,-20/2])
-	cube([2,20,20]);
-	translate([2,-2,-24/2])
-	cube([2,24,24]);
-}
+		// panel
+		translate([2+22,-8,0])
+		hull() {
+			translate([0,0,-20/2])
+			cube([2,20,20]);
+			translate([2,-2,-24/2])
+			cube([2,24,24]);
+		}
 
-// motor cooling grooves
-for (z=[-13,-3,6,14])
-translate([0,0,z])
-rotate([45,0,0])
-translate([-100-((abs(z)<10) ? -2 : 4),-2,-2])
-cube([100,4,4]);
+		// motor cooling grooves
+		for (z=[-13,-3,6,14])
+		translate([0,0,z])
+		rotate([45,0,0])
+		translate([-100-((abs(z)<10) ? -2 : 4),-2,-2])
+		cube([100,4,4]);
 
-// column post hole
-*translate([0,0,8.8-7]) {
-translate([-20-14,-10,-10.075])
-cube([14,20,20.15]);
-translate([-20-14,-4,-12.075])
-cube([14,20,24.15]);
-}
+		// column post hole
+		*translate([0,0,8.8-7]) {
+		translate([-20-14,-10,-10.075])
+		cube([14,20,20.15]);
+		translate([-20-14,-4,-12.075])
+		cube([14,20,24.15]);
+		}
 
 
-// motor shaft & pulley hole
-translate([-1,42/2,0])
-rotate([0,90,0])
-tdcyl(d=22,h=1+14,f=1.25);
-translate([-1,0,-22/2])
-cube([2,42/2,22]);
-
+		// motor shaft & pulley hole
+		translate([-1,42/2,0])
+		rotate([0,90,0])
+		tdcyl(d=22,h=1+14,f=1.25);
+		translate([-1,0,-22/2])
+		cube([2,42/2,22]);
 
 		// screw holes
 		translate([motor_offset,42/2,0])
@@ -165,7 +160,7 @@ cube([2,42/2,22]);
 				cylinder(d=5.3,h=100,center=true);
 			}
 		}
-}
+	}
 
 	// post for mounting to column
 	*translate([0,0,-7])
