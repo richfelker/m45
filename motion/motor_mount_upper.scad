@@ -1,5 +1,6 @@
 
 motor_offset = 1.5;
+nteeth = 16;
 
 module tdcircle(d,a=0,f=1) {
 	hull() {
@@ -18,7 +19,7 @@ tdcircle(d=d,a=a,f=f);
 
 module motormount() {
 
-	translate([0,0,-8.8])
+	translate([0,0,-(10+(nteeth-20)/PI)])
 	difference() {
 
 		union(){
@@ -67,11 +68,12 @@ module motormount() {
 			cylinder(d=18,h=6);
 
 			// second top column mount point
-			translate([-10,0-0.2,-42/2-2])
+			translate([-10,0-0.2,-42/2])
 			rotate([90,0,0])
 			linear_extrude(height=8-0.2,convexity=3)
 			hull() {
-			translate([-10,2]) square([20,1]);
+			translate([-10,0]) square([20,1]);
+			translate([0,(nteeth-20)/PI])
 			circle(d=14);
 			}
 		}
@@ -140,7 +142,7 @@ module motormount() {
 		}
 
 		// column end mount screw holes
-		translate([-10,0,-3]) {
+		translate([-10,0,(nteeth-20)/PI]) {
 			for (z=[0,-20]) translate([0,-6.2,z])
 			rotate([-90,0,0])
 			{
