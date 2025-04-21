@@ -256,22 +256,6 @@ difference() {
 
 
 
-// motor plate
-*translate([0,22-6/2,0])
-difference() {
-	cube([42,6,42],center=true);
-	rotate([90,0,0])
-	cylinder(d=23,h=10,center=true);
-	for (i=[-1,1], j=[-1,1])
-	translate([31/2*i,6/2-3,31/2*j])
-	rotate([90,0,0]) {
-		tdcyl(d=3.2,h=20,center=true);
-		tdcyl(d=5.5,h=20,center=false);
-	}
-
-}
-
-
 
 
 module outline(r=2)
@@ -341,30 +325,6 @@ pulley(pd=12.73,od=15,h=14);
 cube([42,34,42],center=true);
 
 
-*translate([20+332/2,-10,-100])
-cylinder(d=332-16-2,h=100);
-
-
-a=-10;
-*translate([20+8+1,0,0])
-translate([+126+25,0,0])
-rotate(a)
-translate([-126-25,0,0])
-rotate(-a)
-hull() for (i=[0,1]) mirror([0,i,0])
-translate([0,63/2-9.5/2,0])
-sphere(d=9.5);
-
-
-
-
-*translate([13-3,24,0])
-rotate([90,0,0])
-cylinder(d=5,h=21);
-
-
-
-
 
 
 
@@ -382,46 +342,6 @@ module tdcyl(d,h,a=0,f=1,center=false) {
 linear_extrude(height=h,center=center,convexity=3)
 tdcircle(d=d,a=a,f=f);
 }
-
-module extrude_curve(r,a) {
-	rotate([90,0,-90])
-	translate([-r,0,0])
-	rotate_extrude(angle=a,convexity=2)
-	translate([r,0]) children(0);
-
-	if ($children > 1)
-	translate([0,r,0])
-	rotate([-a,0,0])
-	translate([0,-r,0])
-	children([1:$children-1]);
-}
-
-module extrude_straight(l) {
-	linear_extrude(height=l,convexity=2)
-	children(0);
-	if ($children > 1)
-	translate([0,0,l])
-	children([1:$children-1]);
-}
-
-
-*translate([50,0,0])
-extrude_straight(10) {
-square([16,6],center=true);
-extrude_curve(11,60) {
-square([6,16],center=true);
-}}
-
-*extrude_curve(20,45) {
-	circle(d=10);
-	rotate(180)
-	extrude_curve(20,45)
-	circle(d=10);
-}
-
-module ngon(n,w) polygon([
-	for (i=[1:n]) w/sqrt(3) * [cos(360*i/n), sin(360*i/n)]
-	]);
 
 
 $fs=.2;
