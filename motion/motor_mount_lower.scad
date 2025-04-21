@@ -256,37 +256,14 @@ difference() {
 
 
 
+// belt path mockup
 
+use <belt_path.scad>;
+belt_pld=0.254;
 
-module outline(r=2)
-difference() {
-	union() children();
-	offset(r=-r) union() children();
-}
-
-
-
-// belt path
-%translate([0,belt_distance,0])
-mirror([0,1,0])
-rotate([90,0,0])
-linear_extrude(height=belt_width,convexity=3)
-outline(r=1.5)
-offset(r=0.85)
-belt_path();
-
-module belt_path()
-hull() {
-circle(d=11.7);
-*circle(d=13.7);
-translate([idler_x,idler_y])
-circle(d=13.7);
-*translate([idler_x+1,400])
-circle(d=11.7);
-translate([idler_x,400])
-circle(d=13.7);
-}
-
+%rotate(180)
+translate([-20,-belt_distance,25])
+belt_mockup(w=belt_width) belt_pitch_path(l=375);
 
 
 // column
