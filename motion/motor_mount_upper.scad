@@ -59,7 +59,7 @@ module motormount() {
 				linear_extrude(height=100,center=true,convexity=3)
 				polygon([
 					[-36,-8],[2+22+2,-8],[2+22+2,42/2],
-					[6+1.5,42-6],[6+1.5,42],[1.5,42],[1.5,0],[-36,0]
+					[6+1.5,42-6],[6+1.5,42],[motor_offset,42],[motor_offset,0],[-36,0]
 				]);
 			}
 			// bearing holder
@@ -85,9 +85,9 @@ module motormount() {
 
 		// pulley access hole
 		hull() for (y=[0,100])
-		translate([motor_offset+6,42/2+y,0])
+		translate([7.5,42/2+y,0])
 		rotate([0,90,0])
-		cylinder(d=22.2,h=19-(motor_offset+6));
+		cylinder(d=22.2,h=19-7.5);
 
 		// bearing hole
 		translate([19-1,42/2,0])
