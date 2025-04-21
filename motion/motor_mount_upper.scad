@@ -1,5 +1,5 @@
 
-motor_offset = 1.5;
+motor_offset = 0.8;
 nteeth = 16;
 
 module tdcircle(d,a=0,f=1) {
@@ -39,7 +39,7 @@ module motormount() {
 					pulley();
 
 					// double shear bearing
-					%translate([19,42/2,0])
+					%translate([19.3,42/2,0])
 					rotate([0,90,0])
 					cylinder(d=13,h=4);
 
@@ -63,7 +63,7 @@ module motormount() {
 				]);
 			}
 			// bearing holder
-			translate([19,42/2,0])
+			translate([19.5,42/2,0])
 			rotate([0,90,0])
 			cylinder(d=18,h=6);
 
@@ -87,10 +87,10 @@ module motormount() {
 		hull() for (y=[0,100])
 		translate([7.5,42/2+y,0])
 		rotate([0,90,0])
-		cylinder(d=22.2,h=19-7.5);
+		cylinder(d=22.2,h=19.5-7.5);
 
 		// bearing hole
-		translate([19-1,42/2,0])
+		translate([19.5-1,42/2,0])
 		rotate([0,90,0]) {
 			tdcyl(d=13,h=4+1,f=1.5);
 			translate([0,0,-5])
