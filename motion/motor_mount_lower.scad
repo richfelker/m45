@@ -75,7 +75,7 @@ difference() {
 
 		// motor plate
 		difference() {
-		translate([0,20.5,0])
+		translate([0,21,0])
 		rotate([90,0,0])
 		linear_extrude(height=6,convexity=3)
 		for (i=[0,1],j=[0,1]) mirror([i,0]) mirror([0,j])
@@ -90,11 +90,11 @@ difference() {
 		}
 
 		// idler shaft holder
-		translate([idler_x,20.5,idler_y])
+		translate([idler_x,21,idler_y])
 		hull() for (z=[0,-10])
 		translate([0,0,z])
 		rotate([90,0,0])
-		cylinder(d=16,h=4.5);
+		cylinder(d=16,h=5);
 
 		// idler pulley inner race spacer
 		translate([idler_x,22-5,idler_y])
@@ -129,7 +129,7 @@ difference() {
 			rotate([90,0,90])
 			linear_extrude(height=18.25+14.5,convexity=3)
 			polygon([
-				[20.5,0],[20.5,16.5],[16,21],[6,21],[6,31],[0,31],
+				[21,0],[21,16],[16,21],[6,21],[6,31],[0,31],
 				[0,8],[16,-8]
 			]);
 			// idler arm opening for idler pulley
@@ -197,7 +197,7 @@ difference() {
 	}
 
 	// motor screw holes
-	translate([0,5.6-1.5,0])
+	translate([0,5.6-1.0,0])
 	for (i=[-1,1], j=[-1,1])
 	translate([31/2*i,0,31/2*j])
 	rotate([90,0,0]) {
@@ -205,7 +205,7 @@ difference() {
 		if (i!=1 || j!=1)
 		tdcyl(d=5.5,h=5.61,center=false);
 	}
-	translate([0,16+4-1.5,0])
+	translate([0,16+4-1.0,0])
 	translate([31/2,0,31/2])
 	rotate([90,0,0])
 	tdcyl(d=5.5,h=4.1,center=false);
