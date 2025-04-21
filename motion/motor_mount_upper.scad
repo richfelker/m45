@@ -94,9 +94,6 @@ module motormount() {
 			translate([0,0,-5])
 			cylinder(d=9,h=15);
 		}
-		// bearing access
-		*translate([2+22-7,42/2,-22.2/2])
-		cube([10,100,22.2]);
 
 		// chamfers
 		for (x=[-20,2+22+2],z=[-42/2,42/2])
@@ -125,15 +122,6 @@ module motormount() {
 		translate([-100-((abs(z)<10) ? -2 : 4),-2,-2])
 		cube([100,4,4]);
 
-		// column post hole
-		*translate([0,0,8.8-7]) {
-		translate([-20-14,-10,-10.075])
-		cube([14,20,20.15]);
-		translate([-20-14,-4,-12.075])
-		cube([14,20,24.15]);
-		}
-
-
 		// motor shaft & pulley hole
 		translate([-1,42/2,0])
 		rotate([0,90,0])
@@ -160,24 +148,6 @@ module motormount() {
 				cylinder(d=5.3,h=100,center=true);
 			}
 		}
-	}
-
-	// post for mounting to column
-	*translate([0,0,-7])
-	difference() {
-		translate([-20-14,-8-50,-10])
-		translate([0.15,0,0])
-		cube([13.7,50,20]);
-		translate([-39,-8-50-10,10-3])
-		cube([30,35+10,10]);
-		for (y=[-10,-30])
-		translate([-20.5-4,-8-5+y,-3])
-		rotate([0,-90,0])
-		tdcyl(d=10.5,h=50,a=-90);
-		for (y=[-10,-30])
-		translate([-20.5-4,-8-5+y,-3])
-		rotate([0,-90,0])
-		tdcyl(d=5.3,h=50,center=true,a=-90);
 	}
 }
 
