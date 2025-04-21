@@ -174,6 +174,7 @@ cube([20,100,40]);
 use <belt_path.scad>;
 belt_distance=5;
 belt_width=6;
+belt_pld=0.254;
 
 %rotate(90)
 translate([0,-belt_distance,-375+21])
@@ -185,11 +186,11 @@ belt_mockup(w=belt_width) belt_pitch_path(l=375);
 // 13.7-11.3 = 2.4
 
 module pulley() {
-	cylinder(d=13.9,h=1.5);
+	cylinder(d=16,h=1.5);
 	translate([0,0,1.5])
-	cylinder(d=11.3,h=7);
-	translate([0,0,8.5])
-	cylinder(d=13.9,h=7);
+	cylinder(d=2*nteeth/PI-2*belt_pld,h=7.5);
+	translate([0,0,9])
+	cylinder(d=16,h=7);
 }
 
 
