@@ -46,8 +46,8 @@ rotate([0,90,0])
 cylinder(d=13,h=4);
 
 // bottom
-translate([-26,-8,-42/2])
-cube([26+2+22+2,8-0.2,42]);
+translate([-20,-8,-42/2])
+cube([20+2+22+2,8-0.2,42]);
 
 // main block
 difference() {
@@ -71,11 +71,11 @@ rotate([0,90,0])
 cylinder(d=18,h=6);
 
 // second top column mount point
-translate([-10,0-0.2,-3-20])
+translate([-10,0-0.2,-42/2-2])
 rotate([90,0,0])
 linear_extrude(height=8-0.2,convexity=3)
 hull() {
-translate([-12,7]) square([24,1]);
+translate([-10,2]) square([20,1]);
 circle(d=14);
 }
 }
@@ -103,7 +103,8 @@ rotate([0,90,0]) {
 cube([10,100,22.2]);
 
 // chamfers
-for (x=[-26,2+22+2],z=[-42/2,42/2])
+for (x=[-20,2+22+2],z=[-42/2,42/2])
+if (x>0 || z>0)
 translate([x,0,z])
 rotate([0,45,0])
 cube(sqrt(2)*[4,100,4],center=true);
