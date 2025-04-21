@@ -163,46 +163,24 @@ translate([0,-8,0])
 translate([-20,-100,-40])
 cube([20,100,40]);
 
-// belt path
-%
-translate([0,0,])
-rotate([-90,-90,0])
-translate([-idler_x-1.2-8.8,belt_distance,-400+21])
-mirror([0,1,0])
-rotate([90,0,0])
-linear_extrude(height=belt_width,convexity=3)
-outline(r=1.5)
-belt_path();
 }
 
 
 
+// belt path mockup
 
+use <belt_path.scad>;
+belt_distance=5;
+belt_width=6;
+
+%rotate(90)
+translate([0,-belt_distance,-375+21])
+belt_mockup(w=belt_width) belt_pitch_path(l=375);
 
 
 
 
 // 13.7-11.3 = 2.4
-
-belt_distance=5;
-belt_width=6;
-idler_x=10;
-idler_y=25;
-
-module outline(r=2)
-difference() {
-	union() children();
-	offset(r=-r) union() children();
-}
-
-module belt_path()
-hull() {
-circle(d=11.3);
-translate([idler_x,idler_y])
-circle(d=13.7);
-translate([idler_x+1.2,400])
-circle(d=11.3);
-}
 
 module pulley() {
 	cylinder(d=13.9,h=1.5);
