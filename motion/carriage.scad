@@ -123,34 +123,10 @@ module carriage() union() {
 difference() {
 	ex=14;
 	sa=0;
-	union() {
 	translate([0,0,+ex/2])
 	linear_extrude(height=34+ex,center=true,convexity=3)
 	offset(r=0.5) offset(r=-0.5)
 	profile();
-
-	*translate([-13-6.5-11,10,17])
-	rotate([90,0,90])
-	linear_extrude(height=11,convexity=2)
-	flag_profile_1();
-
-	*translate([-13-6.5-11,10,17])
-	//multmatrix([[1,0,0],[0,1,0],[0,1/2,1]])
-	linear_extrude(height=6.5,convexity=2)
-	flag_profile_2();
-	//translate([0,-1,0])
-	//cube([4+7,2,6.5]);
-	}
-
-	*translate([-13,10,17+6.5])
-	rotate([90,0,0])
-	cylinder(d=11,h=40,center=true);	
-
-	*translate([-13-6.5,10,17])
-	for (i=[0,1]) mirror([0,i,0])
-	translate([0,16,11])
-	rotate([0,90,0])
-	cylinder(d=22,h=20,center=true);	
 
 	// barbell alignment
 	translate([-5.5-2-13+0.05,-50,-50+4])
@@ -179,7 +155,6 @@ difference() {
 		ngon(6,5.5);
 	}
 
-	//translate([2.4,0,0]) cube([.1,100,1],center=true);
 	// belt attachment
 	translate([0,0,+ex/2])
 	for (i=[0,1])
@@ -201,7 +176,6 @@ difference() {
 	}
 	}
 	rotate([90,0,0])
-	//translate([2.6,-6.2,0]) {
 	for (y=[7,-10,24])
 	for (x=(y==7)?[0.4]:[0.4,7.6])
 	translate([x,y,0]) {
@@ -212,10 +186,6 @@ difference() {
 		rotate(30) ngon(6,5.1);
 	}
 
-//	translate([0,0,+ex/2])
-//	rotate([90,0,0])
-//	linear_extrude(height=4.5])
-
 	// front cutout above rail block
 	translate([-3,0,+17])
 	rotate([90,0,0])
@@ -223,17 +193,6 @@ difference() {
 	translate([-40,0])
 	offset(r=3) offset(r=-3)
 	square([40,40]);
-
-	// cutout at back
-	*rotate([90,0,0])
-	linear_extrude(height=100,center=true)
-	difference() {
-		translate([100/2+4,0]) square(100,center=true);
-		hull() {
-			for (x=[-10,0],y=[5+1,-5-1])
-			translate([3.15+2.626+x,7+y]) circle(r=4);
-		}
-	}
 }
 	// flag
 	translate([-13-6.5,10-2.2/2,17])
