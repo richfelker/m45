@@ -181,7 +181,7 @@ difference() {
 	translate([0,0,+ex/2])
 	for (i=[0,1])
 	mirror([0,0,i])
-	translate([3.15,0,-11])
+	translate([10-20/PI,0,-11])
 	mirror([0,0,1])
 	//mirror([1,0,0])
 	rotate([90,0,0]) {
