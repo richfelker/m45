@@ -7,11 +7,12 @@ upper_h=31;
 lower_h=16;
 
 belt_width = 6;
-belt_distance = (belt_width==6) ? 5 : 3;
-bearing_od = (belt_width==6) ? 10 : 12;
-bearing_id = (belt_width==6) ? 5 : 8;
-flange_width = (belt_width==6) ? 1.5 : 0;
-belt_clearance = belt_distance - flange_width - 0.5;
+belt_distance = (belt_width==6) ? 5 : 4;
+bearing_od = (belt_width==6) ? 14 : 12;
+bearing_id = 8;
+belt_clearance = (belt_width==6) ? 3.5 : 2.8;
+
+nteeth=16;
 
 difference() {
 	union() {
@@ -25,7 +26,7 @@ difference() {
 				// motor pulley hole
 				//for (p=[[0,0,0],[0,0,400]]) translate(p)
 				rotate([-90,0,0])
-				cylinder(d=16,h=50);
+				cylinder(d=18,h=50);
 
 				// idler hole
 				//for (z=[0,50]) translate([0,0,z])
@@ -37,19 +38,7 @@ difference() {
 			// bearing hole
 			translate([0,0.8,0])
 			rotate([-90,0,0]) {
-				tdcyl(d=bearing_od,h=50,a=180,f=1.5);
-				tdcyl(d=bearing_od-1,h=50,a=180,f=1.5,center=true);
-			}
-			*translate([0,0.5,0])
-			rotate([-90,0,0]) {
-				tdcyl(d=bearing_od,h=50,a=180,f=1.5);
-				//tdcyl(d=bearing_od-1,h=50,a=180,f=1.25,center=true);
-				translate([0,0,-0.5-0.01])
-				cylinder(d1=bearing_od-0.75,d2=bearing_od,h=0.52);
-				intersection() {
-					cube([bearing_id,50,50],center=true);
-					tdcyl(d=bearing_od,h=50,a=180,f=1.5,center=true);
-				}
+				tdcyl(d=bearing_od,h=50,a=180,f=1.5,center=true);
 			}
 
 			// idler hole
@@ -58,14 +47,16 @@ difference() {
 			tdcyl(d=16,h=150,f=1.25,a=180);
 
 			// region needing belt clearance
-			translate([0,belt_clearance,-8])
+			translate([0,belt_clearance,-9])
 			cube(100);
 
-			translate([idler_x+3,7,-8])
+			// aesthetic edge to belt area
+			translate([idler_x+3,7,-9])
 			cylinder(r=6,h=100);
 			
+			// useless material in belt area
 			difference() {
-				translate([idler_x+3,-25,-8])
+				translate([idler_x+3,-25,-9])
 				cube(100);
 				*translate([idler_x,0,idler_y])
 				rotate([-90,0,0])
@@ -282,10 +273,12 @@ translate([0,0,center?0:h/2]) {
 
 // motor pulley
 %
-translate([0,belt_clearance+0.5,0])
-rotate([-90,0,0])
-pulley(pd=10.16,od=13.9,h=belt_width+3.5);
-//cylinder(d=12,h=9,center=false);
+translate([0,belt_clearance+0.8,0])
+rotate([-90,0,0]) {
+	translate([0,0,-1.5]) cylinder(d=8,h=1.5);
+	cylinder(d=2*nteeth/PI,h=7);
+	translate([0,0,7]) cylinder(d=16,h=7.5);
+}
 
 // idler
 %
