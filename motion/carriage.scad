@@ -1,3 +1,6 @@
+th=0.75;
+bt=1.62;
+pld=0.254;
 
 *translate([-30,-13.3+9.8,0])
 cube([100,2,2]);
@@ -181,7 +184,7 @@ difference() {
 	translate([0,0,+ex/2])
 	for (i=[0,1])
 	mirror([0,0,i])
-	translate([10-20/PI,0,-11])
+	translate([10-20/PI+pld,0,-11])
 	mirror([0,0,1])
 	//mirror([1,0,0])
 	rotate([90,0,0]) {
@@ -262,7 +265,7 @@ module belt_teardrop_pitch_profile(r=3.08) {
 }
 
 //module belt_teardrop_profile(bt=1.52,tt=0.67,r=3.08,l=100)
-module belt_teardrop_profile(bt=1.62,tt=0.75,r=3.08,l=100)
+module belt_teardrop_profile(bt=bt,tt=th,r=3.08,l=100)
 offset(r=-0.3) offset(r=0.3)
 {
 	difference() {
@@ -275,7 +278,7 @@ offset(r=-0.3) offset(r=0.3)
 	square([2*bt-tt,100]);
 
 	if (l>0)
-	hull() for (y=[0,l])
+	hull() for (y=[-(bt-tt/2),l])
 	translate([(2*bt-tt)/2-(bt-tt),y])
 	circle(d=2*bt-tt);
 }
