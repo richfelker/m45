@@ -340,22 +340,17 @@ cube([40,20,200],center=true);
 cube([10,27,20]);
 
 // belt path
-*%translate([20,-6-5,-200])
-mirror([0,0,0])
-rotate([90,0,180])
-linear_extrude(height=belt_width,convexity=3)
-outline(r=1.5)
-offset(r=0.85)
-belt_path();
+if ($preview) {
+	%translate([0,-belt_distance,-50])
+	belt_mockup(w=belt_width) belt_pitch_path(l=150);
+}
 
 
 }
 
 
 
-
-
-
+use <belt_path.scad>;
 
 // 13.7-11.3 = 2.4
 
@@ -363,23 +358,7 @@ belt_distance=5;
 belt_width=6;
 idler_x=10;
 idler_y=25;
-
-module outline(r=2)
-difference() {
-	union() children();
-	offset(r=-r) union() children();
-}
-
-module belt_path()
-hull() {
-circle(d=11.3);
-translate([idler_x,idler_y])
-circle(d=13.7);
-translate([idler_x+1.2,400])
-circle(d=11.3);
-}
-
-
+belt_pld=0.254;
 
 
 %translate([-13-6.5-11,10,17])
