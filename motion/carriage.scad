@@ -2,10 +2,6 @@ th=0.75;
 bt=1.62;
 pld=0.254;
 
-*translate([-30,-13.3+9.8,0])
-cube([100,2,2]);
-
-
 // origin is corner of 2040 column
 module profile() {
 	t=6.5;
@@ -40,33 +36,7 @@ module profile() {
 	}
 }
 
-module old_profile() {
-	t=6.5;
-	difference() {
-		// base
-		translate([-t-13,-13.3])
-		square([t+13+3.15+8,13.3+20+8+2]);
-		// barbell clearance & aesthetic
-		translate([-t-13-5,-13])
-		circle(r=8.5);
-		translate([-t-13-5,20+13])
-		circle(r=8.5);
-		// block
-		translate([-13,-3.5])
-		translate([-0.05,0])
-		square([10.1,27.0]);
-		// 2040 with 1mm clerance
-		translate([-13,-1])
-		square(100);
-		// back corner cutout
-		*translate([13,-13])
-		circle(r=4-1);
-	}
-}
-
-module ngon(n,w) polygon([
-	for (i=[1:n]) w/sqrt(3) * [cos(360*i/n), sin(360*i/n)]
-	]);
+module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
 
 module screwhole_old(d1,d2=d1,l1,l2) {
 	for (i=[0,1])
@@ -152,7 +122,7 @@ difference() {
 		translate([0,0,-2.5])
 		linear_extrude(height=5.5-1.6+2.5,convexity=2)
 		rotate(30)
-		ngon(6,5.5);
+		hexagon(5.5);
 	}
 
 	// belt attachment
@@ -172,7 +142,7 @@ difference() {
 		cylinder(d=4.9,h=2);
 		linear_extrude(height=3.3,convexity=3)
 		rotate(30)
-		ngon(6,5.1);
+		hexagon(5.1);
 	}
 	}
 	rotate([90,0,0])
@@ -183,7 +153,7 @@ difference() {
 		*translate([0,0,13.3-1.2])
 		cylinder(d=4.9,h=2);
 		linear_extrude(height=3.3,convexity=3)
-		rotate(30) ngon(6,5.1);
+		rotate(30) hexagon(5.1);
 	}
 
 	// front cutout above rail block
