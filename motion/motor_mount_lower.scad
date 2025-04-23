@@ -13,6 +13,7 @@ bearing_id = 8;
 belt_clearance = (belt_width==6) ? 3.5 : 2.8;
 
 idler_start = 1.5;
+idler_width = 14;
 
 nteeth=16;
 
@@ -88,18 +89,21 @@ difference() {
 			}
 			// cutout for idler
 			hull() for (p=[[0,0,0],[20,0,-7]])
-			translate(p+[idler_x,20.5-4.5,idler_y])
+			translate(p+[idler_x,idler_start+idler_width+0.5,idler_y])
 			rotate([90,0,0])
 			cylinder(d=20,h=20);
 		}
 
 		// idler pulley inner race spacer
-		translate([idler_x,22-5,idler_y])
-		rotate([90,0,0])
-		hull() {
-			cylinder(d=8,h=1.5);
-			translate([0,0,-1.5])
-			tdcyl(d=8,h=1,a=180);
+		if (idler_start+idler_width+0.5 > 21-6) {
+			translate([idler_x,idler_start+idler_width+0.5,idler_y])
+			rotate([90,0,0])
+			cylinder(d1=9,d2=8,h=0.5);
+		} else {
+			l = 21-6-(idler_start+idler_width+0.5);
+			translate([idler_x,21-6,idler_y])
+			rotate([90,0,0])
+			cylinder(d1=8+2*l,d2=8,h=l);
 		}
 
 		// inside extrusion channel
@@ -131,7 +135,7 @@ difference() {
 			]);
 			// idler arm opening for idler pulley
 			rotate([90,0,0])
-			linear_extrude(height=2*16,center=true,convexity=3)
+			linear_extrude(height=2*max(15,idler_start+idler_width+0.5),center=true,convexity=3)
 			polygon([
 				[2,0],[2,29],[17,39],[17,0]
 			]);
