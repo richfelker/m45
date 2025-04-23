@@ -24,40 +24,6 @@ hd2=10.6; // 0.1
 vshort=h-vl;
 
 short=sqrt(3)*(d/2+20)-sl;
-echo(short);
-
-//%translate([-40,d/2+40]) square([80,80]);
-
-
-*translate([0,0,40])
-linear_extrude(height=8)
-circle(d=bd);
-
-*translate([0,0,40])
-linear_extrude(height=1)
-intersection_for (a=[0:120:240])
-rotate(a)
-translate([0,d/2])
-circle(r=d);
-
-
-module corners(r=1,a=45) difference() {
-	union() { children(); }
-	offset(r=1.001*r)
-	offset(delta=-r)
-	children();
-}
-
-module grow_corners(r=1) {
-	if (r==0) children();
-	else
-	offset(r=-r)
-	offset(r=r)
-	union() {
-		children();
-		offset(r=r) corners(r=r/100) children();
-	}
-}
 
 module undercut(l,r,a=30) difference() {
 	linear_extrude(height=l,center=true)
@@ -67,18 +33,6 @@ module undercut(l,r,a=30) difference() {
 	scale([1,tan(a),1])
 	rotate(-45)
 	square(sqrt(2),center=true);
-
-	*for (i=[0,1]) mirror([0,0,i])
-	translate([0,0,l/2])
-	rotate(-45)
-	translate([0,r,0])
-	rotate([45,0,0])
-	translate([0,0,5*r])
-	cube(10*r,center=true);
-
-*	translate([0,0,l/2])
-	translate([r*sqrt(2)/2,r*sqrt(2)/2,0])
-	sphere(d=0.2);
 
 	for (j=[0,1]) rotate(-90*j)
 	for (i=[0,1]) mirror([0,0,i])
@@ -118,26 +72,6 @@ module extrusion_slot(d,sc=0,cc=0) render() union() {
 		undercut(l=2*x+2*cc,r=cc);
 	}
 
-	*translate([x,y])
-	rotate(45)
-	scale([cc/(1-tan(ea)),cc/(1-tan(ea)),1])
-	translate([-tan(ea),0])
-	scale([1,tan(ea),1])
-	rotate(-45)
-	color("red")
-	cube([sqrt(2),sqrt(2),2*z+2*cc],center=true);
-
-	*for (i=[-1,1], j=[-1,1]) {
-		hull() for (k=[-1,1])
-		translate([i*x,j*y,k*z])
-		sphere(r=cc);
-		hull() for (k=[-1,1])
-		translate([i*x,k*y,j*z])
-		sphere(r=cc);
-		hull() for (k=[-1,1])
-		translate([k*x,i*y,j*z])
-		sphere(r=cc);
-	}
 	cube([2*(x+sc),2*(y+sc),2*(z+sc)],center=true);
 }
 
@@ -155,21 +89,6 @@ module tdcyl(d,h,a=0,f=1,center=false) {
 linear_extrude(height=h,center=center,convexity=3)
 tdcircle(d=d,a=a,f=f);
 }
-
-module tdcyl_old(d,h,center=false,a=0) {
-	linear_extrude(height=h,center=center)
-	hull() {
-		circle(d=d);
-		rotate(a)
-		translate([0,d/2/sqrt(2)])
-		rotate(45)
-		square(d/2,center=true);
-	}
-}
-
-*tdcyl(10,10);
-
-*extrusion_slot([20,40,100],sc=0.15*0,cc=.6);
 
 
 module delta_frame(h,d,short,sc=0,cc=0,holes=false) {
@@ -295,20 +214,11 @@ module vertex() difference() {
 	*rotate([45,0,0])
 	translate([0,95+33,0])
 	cube(160,center=true);
-
-	*rotate([45,0,0])
-	translate([0,-95-10,0])
-	cube(160,center=true);
 }
 
 module top_vertex() difference() {
 	top_vertex_block();
 	translate([0,-d/2-20,40-h]) delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
-
-	*translate([0,0,40]) rotate([0,180,0])
-	rotate([-45,0,0])
-	translate([0,-80-45-5,0])
-	cube(160,center=true);
 
 	translate([0,0,40]) rotate([0,180,0])
 	rotate([-45,0,0])
@@ -367,8 +277,6 @@ module top_vertex_block() {
 		}
 	}
 	module cavity_profile(off=0,end=60) {
-		*translate([0,-40])
-		square(40,center=true);
 		intersection() {
 			translate([0,-(end-off)/2-off])
 			square([150,end-off],center=true);
