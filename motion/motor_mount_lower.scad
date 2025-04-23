@@ -19,6 +19,7 @@ nteeth=16;
 
 mockups = false;
 
+module motor_mount_lower()
 difference() {
 	union() {
 		//column plate
@@ -256,6 +257,7 @@ difference() {
 }
 
 
+motor_mount_lower();
 
 
 use <belt_path.scad>;
