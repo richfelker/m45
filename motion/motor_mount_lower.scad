@@ -12,6 +12,8 @@ bearing_od = (belt_width==6) ? 14 : 12;
 bearing_id = 8;
 belt_clearance = (belt_width==6) ? 3.5 : 2.8;
 
+idler_start = 1.5;
+
 nteeth=16;
 
 difference() {
@@ -42,7 +44,7 @@ difference() {
 			}
 
 			// idler hole
-			translate([idler_x,0.8,idler_y])
+			translate([idler_x,idler_start-0.7,idler_y])
 			rotate([-90,0,0])
 			tdcyl(d=16,h=150,f=1.25,a=180);
 
@@ -100,14 +102,14 @@ difference() {
 		translate([10,-6/2,upper_h/2-lower_h/2])
 		cube([5.95,6,42+upper_h+lower_h],center=true);
 
-		// idler shaft mount
+		// idler shaft mount, extrusion side
 		translate([idler_x,0,idler_y])
 		intersection() {
 			rotate([-90,0,0])
-			cylinder(d1=11,d2=8,h=1.5);
+			cylinder(d1=8+2*idler_start,d2=8,h=idler_start);
 			// only 0.5 mm out, not 1.0
 			//cylinder(d1=9,d2=8,h=1,center=true);
-			cube([5.9,10,20],center=true);
+			cube([5.9,20,20],center=true);
 		}
 
 		// back wraparound plate
