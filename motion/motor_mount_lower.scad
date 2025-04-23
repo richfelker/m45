@@ -12,8 +12,8 @@ bearing_od = (belt_width==6) ? 14 : 12;
 bearing_id = 8;
 belt_clearance = (belt_width==6) ? 3.5 : 2.8;
 
-idler_start = 1.5;
-idler_width = 14;
+idler_start = (belt_width==6) ? 3 : 2.3;
+idler_width = (belt_width==6) ? 10 : 14;
 
 nteeth=16;
 
