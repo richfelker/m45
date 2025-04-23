@@ -16,6 +16,8 @@ idler_start = 1.5;
 
 nteeth=16;
 
+mockups = false;
+
 difference() {
 	union() {
 		//column plate
@@ -249,15 +251,9 @@ difference() {
 
 
 
-// belt path mockup
 
 use <belt_path.scad>;
 belt_pld=0.254;
-
-%rotate(180)
-translate([-20,-belt_distance,25])
-belt_mockup(w=belt_width) belt_pitch_path(l=375);
-
 
 // column
 *
@@ -273,23 +269,27 @@ translate([0,0,center?0:h/2]) {
 }
 
 
-// motor pulley
-%
-translate([0,belt_clearance+0.8,0])
-rotate([-90,0,0]) {
-	translate([0,0,-1.5]) cylinder(d=8,h=1.5);
-	cylinder(d=2*nteeth/PI,h=7);
-	translate([0,0,7]) cylinder(d=16,h=7.5);
+if (mockups) {
+	// belt path mockup
+	%rotate(180)
+	translate([-20,-belt_distance,25])
+	belt_mockup(w=belt_width) belt_pitch_path(l=375);
+
+	// motor pulley
+	%translate([0,belt_clearance+0.8,0])
+	rotate([-90,0,0]) {
+		translate([0,0,-1.5]) cylinder(d=8,h=1.5);
+		cylinder(d=2*nteeth/PI,h=7);
+		translate([0,0,7]) cylinder(d=16,h=7.5);
+	}
+
+	// idler
+	%translate([idler_x,1.5,idler_y])
+	rotate([-90,0,0])
+	//cylinder(d=15,h=9,center=false);
+	//cylinder(d=13.7,h=9,center=false);
+	pulley(pd=12.73,od=15,h=14);
 }
-
-// idler
-%
-translate([idler_x,1.5,idler_y])
-rotate([-90,0,0])
-//cylinder(d=15,h=9,center=false);
-//cylinder(d=13.7,h=9,center=false);
-pulley(pd=12.73,od=15,h=14);
-
 
 
 // motor
