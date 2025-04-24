@@ -91,21 +91,20 @@ tdcircle(d=d,a=a,f=f);
 }
 
 
-module delta_frame(h,d,short,sc=0,cc=0,holes=false) {
+module delta_frame(d,short,sc=0,cc=0,holes=false,top=false) {
 	translate([0,0,vshort/2])
-	delta_column(vl,d,sc,cc,holes);
-	delta_ends(h,d,short,sc,cc,holes);
+	delta_column(d,sc,cc,holes,top);
+	delta_ends(d,short,sc,cc,holes,top);
 }
 
-module delta_column(h,d,sc,cc,holes=false) {
-	translate([0,0,h/2])
-	extrusion_slot([20,40,h],sc=sc,cc=cc);
+module delta_column(d,sc,cc,holes=false,top=false) {
+	if (!top) translate([0,0,50/2])
+	extrusion_slot([20,40,50],sc=sc,cc=cc);
 
 	if (holes)
-	for (top=[0,1])
-	translate([0,0,h/2])
-	mirror([0,0,top])
-	translate([0,0,-h/2])	
+	translate([0,0,20])
+	mirror([0,0,top?1:0])
+	translate([0,0,-20])	
 
 	{
 		for (y=[-10,10])
@@ -141,11 +140,10 @@ module delta_column(h,d,sc,cc,holes=false) {
 	}
 }
 
-module delta_ends(h,d,short,sc,cc,holes) {
-	for (top=[0,1])
-	translate([0,0,h/2])
-	mirror([0,0,top])
-	translate([0,0,-h/2])	
+module delta_ends(d,short,sc,cc,holes,top=false) {
+	translate([0,0,20])
+	mirror([0,0,top?1:0])
+	translate([0,0,-20])	
 	for (i=[0,1]) mirror([i,0]) {
 		rotate(-60)
 		translate([0,10*sqrt(3)])
@@ -196,7 +194,7 @@ module delta_ends(h,d,short,sc,cc,holes) {
 
 module vertex() difference() {
 	vertex_block();
-	delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
+	delta_frame(d=d,short=short,sc=0.025,cc=0.6,holes=true,top=false);
 
 	rotate([-45,0,0])
 	translate([0,-80-45-5,0])
@@ -213,7 +211,7 @@ module vertex() difference() {
 
 module top_vertex() difference() {
 	top_vertex_block();
-	translate([0,0,40-h]) delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
+	delta_frame(d=d,short=short,sc=0.025,cc=0.6,holes=true,top=true);
 
 	translate([0,0,40]) rotate([0,180,0])
 	rotate([-45,0,0])
