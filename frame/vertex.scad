@@ -91,13 +91,13 @@ tdcircle(d=d,a=a,f=f);
 }
 
 
-module delta_frame(d,short,sc=0,cc=0,holes=false,top=false) {
+module delta_frame(sc=0,cc=0,holes=false,top=false) {
 	translate([0,0,vshort/2])
-	delta_column(d,sc,cc,holes,top);
-	delta_ends(d,short,sc,cc,holes,top);
+	delta_column(sc,cc,holes,top);
+	delta_ends(sc,cc,holes,top);
 }
 
-module delta_column(d,sc,cc,holes=false,top=false) {
+module delta_column(sc,cc,holes=false,top=false) {
 	if (!top) translate([0,0,50/2])
 	extrusion_slot([20,40,50],sc=sc,cc=cc);
 
@@ -140,7 +140,7 @@ module delta_column(d,sc,cc,holes=false,top=false) {
 	}
 }
 
-module delta_ends(d,short,sc,cc,holes,top=false) {
+module delta_ends(sc,cc,holes,top=false) {
 	translate([0,0,20])
 	mirror([0,0,top?1:0])
 	translate([0,0,-20])	
@@ -148,15 +148,12 @@ module delta_ends(d,short,sc,cc,holes,top=false) {
 		rotate(-60)
 		translate([0,10*sqrt(3)])
 		{
+			short=sqrt(3)*(332/2+20)-250;
 			translate([short/2,0])
-			translate(0.5*[sqrt(3)*(d/2+20)-short,20,40])
-			extrusion_slot([sqrt(3)*(d/2+20)-short,20,40],sc=sc,cc=cc);
+			translate(0.5*[34,20,40])
+			extrusion_slot([34,20,40],sc=sc,cc=cc);
 
-			if (holes && i!=2)
-			for (i=[0,1])
-			translate([sqrt(3)*(d/2+20)/2,0,0])
-			mirror([i,0,0])
-			translate([-sqrt(3)*(d/2+20)/2,0,0])
+			if (holes)
 			{
 				for (z=[10,30])
 				translate([52,10,z])
@@ -194,7 +191,7 @@ module delta_ends(d,short,sc,cc,holes,top=false) {
 
 module vertex() difference() {
 	vertex_block();
-	delta_frame(d=d,short=short,sc=0.025,cc=0.6,holes=true,top=false);
+	delta_frame(sc=0.025,cc=0.6,holes=true,top=false);
 
 	rotate([-45,0,0])
 	translate([0,-80-45-5,0])
@@ -211,7 +208,7 @@ module vertex() difference() {
 
 module top_vertex() difference() {
 	top_vertex_block();
-	delta_frame(d=d,short=short,sc=0.025,cc=0.6,holes=true,top=true);
+	delta_frame(sc=0.025,cc=0.6,holes=true,top=true);
 
 	translate([0,0,40]) rotate([0,180,0])
 	rotate([-45,0,0])
@@ -307,8 +304,8 @@ module vertex_block() {
 
 
 
-*top_vertex();
-vertex();
+top_vertex();
+*vertex();
 
 
 
