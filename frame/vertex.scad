@@ -93,16 +93,14 @@ tdcircle(d=d,a=a,f=f);
 
 module delta_frame(h,d,short,sc=0,cc=0,holes=false) {
 	translate([0,0,vshort/2])
-	delta_columns(vl,d,sc,cc,holes);
+	delta_column(vl,d,sc,cc,holes);
+	translate([0,-d/2-20,0])
 	delta_ends(h,d,short,sc,cc,holes);
 }
 
-module delta_columns(h,d,sc,cc,holes=false) {
-	for (i=[0:2]) rotate(120*i) {
-
-		translate([0,d/2+20,h/2])
-		extrusion_slot([20,40,h],sc=sc,cc=cc);
-	}
+module delta_column(h,d,sc,cc,holes=false) {
+	translate([0,0,h/2])
+	extrusion_slot([20,40,h],sc=sc,cc=cc);
 
 	if (holes)
 	for (top=[0,1])
@@ -111,11 +109,11 @@ module delta_columns(h,d,sc,cc,holes=false) {
 	translate([0,0,-h/2])	
 
 	{
-		for (y=[10,30])
+		for (y=[-10,10])
 		//if (!top || y==30)
 		for (z=[10,30])
 		for (j=[0,1])
-		translate([0,d/2+y,z])
+		translate([0,y,z])
 		mirror([j,0,0])
 		rotate([0,90,0]) {
 			tdcyl(d=hd1,h=200,a=135);
@@ -125,7 +123,7 @@ module delta_columns(h,d,sc,cc,holes=false) {
 		for (z=[10,30])
 		for (j=[0,1])
 		if (!top || j==0)
-		translate([0,d/2+20,z])
+		translate([0,0,z])
 		mirror([0,j,0])
 		rotate([-90,0,0]) {
 			tdcyl(d=hd1,h=200,a=180);
@@ -133,13 +131,13 @@ module delta_columns(h,d,sc,cc,holes=false) {
 			tdcyl(d=hd2,h=200,a=180);
 		}
 		// extrusion end tap holes
-		for (y=[10,30])
-		translate([0,y+d/2,0])
+		for (y=[-10,10])
+		translate([0,y,0])
 		tdcyl(d=top ? hd1 : hd2,h=200,center=true,a=180);
 
 		// pseudo chamfer at opening
 		if (cc)
-		translate([0,d/2+20,45/2])
+		translate([0,0,45/2])
 		extrusion_slot([20,40,45],sc=sc,cc=cc);
 	}
 }
@@ -201,7 +199,7 @@ module delta_ends(h,d,short,sc,cc,holes) {
 
 module vertex() difference() {
 	vertex_block();
-	translate([0,-d/2-20,0]) delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
+	delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
 
 	rotate([-45,0,0])
 	translate([0,-80-45-5,0])
@@ -218,7 +216,7 @@ module vertex() difference() {
 
 module top_vertex() difference() {
 	top_vertex_block();
-	translate([0,-d/2-20,40-h]) delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
+	translate([0,0,40-h]) delta_frame(h=h,d=d,short=short,sc=0.025,cc=0.6,holes=true);
 
 	translate([0,0,40]) rotate([0,180,0])
 	rotate([-45,0,0])
