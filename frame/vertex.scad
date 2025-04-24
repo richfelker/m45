@@ -94,7 +94,6 @@ tdcircle(d=d,a=a,f=f);
 module delta_frame(h,d,short,sc=0,cc=0,holes=false) {
 	translate([0,0,vshort/2])
 	delta_column(vl,d,sc,cc,holes);
-	translate([0,-d/2-20,0])
 	delta_ends(h,d,short,sc,cc,holes);
 }
 
@@ -147,9 +146,7 @@ module delta_ends(h,d,short,sc,cc,holes) {
 	translate([0,0,h/2])
 	mirror([0,0,top])
 	translate([0,0,-h/2])	
-//	for (z=[0,h-40]) translate([0,0,z])
-	for (i=[0:2]) rotate(120*i) {
-		translate([0,d/2+20])
+	for (i=[0,1]) mirror([i,0]) {
 		rotate(-60)
 		translate([0,10*sqrt(3)])
 		{
