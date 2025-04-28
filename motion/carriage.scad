@@ -1,5 +1,5 @@
 th=0.75;
-bt=1.62;
+bt=1.38;
 pld=0.254;
 
 // origin is corner of 2040 column
