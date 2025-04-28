@@ -18,7 +18,7 @@ module profile() {
 		circle(r=8.5);
 		// block
 		translate([-13,-3.5])
-		translate([-0.05,0])
+		//translate([-0.05,0])
 		square([10.1,27.0]);
 		// belt coupler
 		*translate([-3.1,-5-6.1])
