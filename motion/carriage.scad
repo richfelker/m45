@@ -115,6 +115,14 @@ difference() {
 	screwhole(d1=3.4,d2=6.0,l1=2.7,l2=4.5-0.7-(j>0?0:1),a=sa);
 	//cylinder(d=3.2,h=100,);
 
+	// printability cut for top screw holes
+	translate([-5.5-13+0.05,10,0])
+	for (i=[-1,1])
+	hull() for (z=[0,-10])
+	translate([0,20/2*i,15/2+z])
+	rotate([0,-90,0])
+	cylinder(d1=4,d2=7,h=1.2);
+
 	// barbell mount holes
 	translate([0,10,0])
 	for (i=[-1,1])
