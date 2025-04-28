@@ -7,8 +7,8 @@ module profile() {
 	t=6.5;
 	difference() {
 		// base
-		translate([-t-13,-11.1])
-		square([t+13+3.15+8,11.1+20+8+2]);
+		translate([-t-13,-13.5])
+		square([t+13+3.15+8,13.5+20+8+2]);
 //		translate([-t-13,-13.3])
 //		square([t+13+3.15+8,13.3+20+8+2]);
 		// barbell clearance & aesthetic
@@ -26,6 +26,9 @@ module profile() {
 		*translate([-3.1,-7.1])
 		square(100);
 		*translate([2.2,-11.3])
+		square(100);
+		// back reinforcement plate
+		translate([-3,-4.7])
 		square(100);
 		// 2040 with 1mm clerance
 		translate([-13,-1])
@@ -133,14 +136,15 @@ difference() {
 	mirror([0,0,1])
 	//mirror([1,0,0])
 	rotate([90,0,0]) {
-	translate([0,0,4.7])
-	linear_extrude(height=11.3,convexity=3)
+	translate([0,0,11.1])
+	mirror([0,0,1])
+	linear_extrude(height=11.1,convexity=3)
 	belt_teardrop_profile(r=2.626); // 2.626 or 3.08
 	translate([2.626,-6.35,0]) {
 		cylinder(d=2.8,h=100);
-		*translate([0,0,13.3-1.2])
+		translate([0,0,14-1.7])
 		cylinder(d=4.9,h=2);
-		linear_extrude(height=3.3,convexity=3)
+		*linear_extrude(height=3.3,convexity=3)
 		rotate(30)
 		hexagon(5.1);
 	}
@@ -150,18 +154,18 @@ difference() {
 	for (x=(y==7)?[0.4]:[0.4,7.6])
 	translate([x,y,0]) {
 		cylinder(d=2.8,h=100);
-		*translate([0,0,13.3-1.2])
+		translate([0,0,14-1.7])
 		cylinder(d=4.9,h=2);
-		linear_extrude(height=3.3,convexity=3)
+		*linear_extrude(height=3.3,convexity=3)
 		rotate(30) hexagon(5.1);
 	}
 
 	// front cutout above rail block
-	translate([-3,0,+17])
+	translate([-3+0.01,0,+17])
 	rotate([90,0,0])
 	linear_extrude(height=100,center=true)
 	translate([-40,0])
-	offset(r=3) offset(r=-3)
+	//offset(r=3) offset(r=-3)
 	square([40,40]);
 }
 	// flag
@@ -253,6 +257,8 @@ module flag_profile_2() {
 rotate($preview ? [0,0,0] : [90,0,180]) {
 carriage();
 
+
+if (false) {
 //tabs
 translate([3.15-3,-11.1,34/2+14-0.8])
 cube([6,0.6,0.8]);
@@ -262,6 +268,7 @@ for (i=[-1,1])
 translate([3.15+0.6,-11.1+0.3,i*6+7])
 rotate([0,-30*i,0])
 cube([10,0.6,0.8],center=true);
+}
 
 // 2040
 *%translate([40/2,20/2,0])
