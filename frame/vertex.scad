@@ -1,29 +1,9 @@
 
-// frame height
-h=550;
-
-// length of vertical extrusions
-vl=550;
-
-// inner diameter of extrusions
-d=332;
-
-// bed/working diameter
-bd=254;
-
-// side length of base extrusions
-sl=250;
-
 // hole diameter for screws
 hd1=5.3; // 0.1
 
 // hole diameter for washers/heads
 hd2=10.6; // 0.1
-
-
-vshort=h-vl;
-
-short=sqrt(3)*(d/2+20)-sl;
 
 module undercut(l,r,a=30) difference() {
 	linear_extrude(height=l,center=true)
@@ -92,7 +72,6 @@ tdcircle(d=d,a=a,f=f);
 
 
 module delta_frame(sc=0,cc=0,holes=false,top=false) {
-	translate([0,0,vshort/2])
 	delta_column(sc,cc,holes,top);
 	delta_ends(sc,cc,holes,top);
 }
