@@ -35,7 +35,7 @@ module undercut(l,r,a=30) difference() {
 	cube(10*r,center=true);
 }
 
-module extrusion_slot(d) render() union() {
+module extrusion_slot(d) union() {
 	x=d[0]/2;
 	y=d[1]/2;
 	z=d[2]/2;
