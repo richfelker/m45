@@ -1,3 +1,8 @@
+// Side clearance for extrusion slots
+sc=0.025;
+
+// Corner clearance for extrusion slots
+cc=0.6;
 
 // hole diameter for screws
 hd1=5.3; // 0.1
@@ -30,7 +35,7 @@ module undercut(l,r,a=30) difference() {
 	cube(10*r,center=true);
 }
 
-module extrusion_slot(d,sc=0,cc=0) render() union() {
+module extrusion_slot(d) render() union() {
 	x=d[0]/2;
 	y=d[1]/2;
 	z=d[2]/2;
@@ -71,14 +76,14 @@ tdcircle(d=d,a=a,f=f);
 }
 
 
-module delta_frame(sc=0,cc=0,holes=false,top=false) {
-	delta_column(sc,cc,holes,top);
-	delta_ends(sc,cc,holes,top);
+module delta_frame(holes=false,top=false) {
+	delta_column(holes,top);
+	delta_ends(holes,top);
 }
 
-module delta_column(sc,cc,holes=false,top=false) {
+module delta_column(holes=false,top=false) {
 	if (!top) translate([0,0,50/2])
-	extrusion_slot([20,40,50],sc=sc,cc=cc);
+	extrusion_slot([20,40,50]);
 
 	if (holes)
 	translate([0,0,20])
@@ -115,11 +120,11 @@ module delta_column(sc,cc,holes=false,top=false) {
 		// pseudo chamfer at opening
 		if (cc)
 		translate([0,0,45/2])
-		extrusion_slot([20,40,45],sc=sc,cc=cc);
+		extrusion_slot([20,40,45]);
 	}
 }
 
-module delta_ends(sc,cc,holes,top=false) {
+module delta_ends(holes,top=false) {
 	translate([0,0,20])
 	mirror([0,0,top?1:0])
 	translate([0,0,-20])	
@@ -130,7 +135,7 @@ module delta_ends(sc,cc,holes,top=false) {
 			short=sqrt(3)*(332/2+20)-250;
 			translate([short/2,0])
 			translate(0.5*[34,20,40])
-			extrusion_slot([34,20,40],sc=sc,cc=cc);
+			extrusion_slot([34,20,40]);
 
 			if (holes)
 			{
@@ -170,7 +175,7 @@ module delta_ends(sc,cc,holes,top=false) {
 
 module vertex() difference() {
 	vertex_block();
-	delta_frame(sc=0.025,cc=0.6,holes=true,top=false);
+	delta_frame(holes=true,top=false);
 
 	rotate([-45,0,0])
 	translate([0,-80-45-5,0])
@@ -187,7 +192,7 @@ module vertex() difference() {
 
 module top_vertex() difference() {
 	top_vertex_block();
-	delta_frame(sc=0.025,cc=0.6,holes=true,top=true);
+	delta_frame(holes=true,top=true);
 
 	translate([0,0,40]) rotate([0,180,0])
 	rotate([-45,0,0])
@@ -211,7 +216,7 @@ module top_vertex_block() {
 		vertex_block();
 
 		translate([0,0,100/2-40])
-		extrusion_slot([20,40,100],sc=0.025);
+		extrusion_slot([20,40,100]);
 
 		// rail
 		translate([-6.2,-8.2-20,-40])
