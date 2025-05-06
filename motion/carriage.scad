@@ -11,11 +11,12 @@ module profile() {
 		square([t+13+3.15+8,13.5+20+8+2]);
 //		translate([-t-13,-13.3])
 //		square([t+13+3.15+8,13.3+20+8+2]);
-		// barbell clearance & aesthetic
-		translate([-t-13-5,-13])
-		circle(r=8.5);
-		translate([-t-13-5,20+13])
-		circle(r=8.5);
+		// ball cup clearance & aesthetic
+		let (ofs=1)
+		for (i=[-1,1])
+		translate([-13-5.5+0.05-7.1/2-ofs,10+25*i])
+		//translate([-t-13-5,10+23*i])
+		circle(r=8.5+ofs);
 		// block
 		translate([-13,-3.5])
 		//translate([-0.05,0])
