@@ -75,21 +75,15 @@ linear_extrude(height=h,center=center,convexity=3)
 tdcircle(d=d,a=a,f=f);
 }
 
+module delta_column_holes(top=false) {
+	translate([0,0,top ? 40-45/2 : 45/2])
+	extrusion_slot([20,40,45]);
+	translate([0,0,top ? 40-50/2 : 50/2])
+	cube([20,40,50],center=true);
 
-module delta_frame(holes=false,top=false) {
-	delta_column(holes,top);
-	delta_ends(holes,top);
-}
-
-module delta_column(holes=false,top=false) {
-	if (!top) translate([0,0,50/2])
-	extrusion_slot([20,40,50]);
-
-	if (holes)
 	translate([0,0,20])
 	mirror([0,0,top?1:0])
-	translate([0,0,-20])	
-
+	translate([0,0,-20])
 	{
 		for (y=[-10,10])
 		//if (!top || y==30)
@@ -118,13 +112,13 @@ module delta_column(holes=false,top=false) {
 		tdcyl(d=top ? hd1 : hd2,h=200,center=true,a=180);
 
 		// pseudo chamfer at opening
-		if (cc)
+		*if (cc)
 		translate([0,0,45/2])
 		extrusion_slot([20,40,45]);
 	}
 }
 
-module delta_ends(holes,top=false) {
+module delta_end_holes(top=false) {
 	translate([0,0,20])
 	mirror([0,0,top?1:0])
 	translate([0,0,-20])	
@@ -137,7 +131,6 @@ module delta_ends(holes,top=false) {
 			translate(0.5*[34,20,40])
 			extrusion_slot([34,20,40]);
 
-			if (holes)
 			{
 				for (z=[10,30])
 				translate([52,10,z])
@@ -175,7 +168,9 @@ module delta_ends(holes,top=false) {
 
 module vertex() difference() {
 	vertex_block();
-	delta_frame(holes=true,top=false);
+
+	delta_column_holes(top=false);
+	delta_end_holes(top=false);
 
 	rotate([-45,0,0])
 	translate([0,-80-45-5,0])
@@ -192,7 +187,9 @@ module vertex() difference() {
 
 module top_vertex() difference() {
 	top_vertex_block();
-	delta_frame(holes=true,top=true);
+
+	delta_column_holes(top=true);
+	delta_end_holes(top=true);
 
 	translate([0,0,40]) rotate([0,180,0])
 	rotate([-45,0,0])
@@ -214,9 +211,6 @@ module top_vertex_block() {
 	difference() {
 		rotate([0,180,0])
 		vertex_block();
-
-		translate([0,0,100/2-40])
-		extrusion_slot([20,40,100]);
 
 		// rail
 		translate([-6.2,-8.2-20,-40])
