@@ -215,8 +215,10 @@ difference() {
 	}
 
 	// area cooling vents
+	acar = open_front ? 95 : 162;
+	acas = open_front ? 38 : 36;
 	if (area_cooling_vents)
-	for (a=[-95:38:95]) rotate(a)
+	for (a=[-acar:acas:acar]) rotate(a)
 	translate([0,-15-(eho-22.5),bottom_z+1.4])
 	//translate([0,-15,-3-10-9-lower])
 	rotate([90,0,0])
