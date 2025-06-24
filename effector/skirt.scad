@@ -5,6 +5,7 @@ foot_length=5;
 out_angle=30;
 heat_shield=true;
 open_front=true;
+area_cooling_vents=true;
 
 //foot_length=3;
 //lower=3;
@@ -214,8 +215,9 @@ difference() {
 	}
 
 	// area cooling vents
+	if (area_cooling_vents)
 	for (a=[-95:38:95]) rotate(a)
-	translate([0,-15,bottom_z+1.4])
+	translate([0,-15-(eho-22.5),bottom_z+1.4])
 	//translate([0,-15,-3-10-9-lower])
 	rotate([90,0,0])
 	linear_extrude(height=2*eho,convexity=3)
