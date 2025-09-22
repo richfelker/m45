@@ -45,6 +45,30 @@ module rail_mockup(l=h-100) union() {
 	cube([27,10,35],center=true);
 }
 
+module motor_mockup(l=34,sl=22) {
+	module nema17_profile(inset=0) hull() {
+		square([42,32-inset],center=true);
+		square([32-inset,42],center=true);
+	}
+	color("#f0f0f0")
+	translate([0,0,-sl])
+	cylinder(d=5,h=sl+1);
+	color("#f0f0f0")
+	translate([0,0,-1])
+	cylinder(d=22,h=1);
+	color("#f0f0f0")
+	linear_extrude(height=10,convexity=3)
+	nema17_profile();
+	translate([0,0,10])
+	color("#303030")
+	linear_extrude(height=l-22,convexity=3)
+	nema17_profile(inset=3);
+	translate([0,0,l-12])
+	color("#f0f0f0")
+	linear_extrude(height=12,convexity=3)
+	nema17_profile();
+}
+
 
 for (a=[0:120:240]) rotate(a) {
 	color(vertex_color)
@@ -74,17 +98,25 @@ for (a=[0:120:240]) rotate(a) {
 	linear_extrude(height=h,convexity=3)
 	profile_2040();
 
-	translate([10,d/2+20,100])
-	rotate(-90)
-	color(motor_mount_color)
-	render()
-	motor_mount_lower();
+	translate([10,d/2+20,100]) {
+		rotate(-90)
+		color(motor_mount_color)
+		render()
+		motor_mount_lower();
+		translate([21,0,0])
+		rotate([0,90,0])
+		motor_mockup();
+	}
 
-	translate([10,d/2,h+8+5])
-	color(motor_mount_color)
-	rotate([90,0,0])
-	render()
-	motormount();
+	translate([10,d/2,h+8+5]) {
+		color(motor_mount_color)
+		rotate([90,0,0])
+		render()
+		motormount();
+		translate([0.8,0,42/2])
+		rotate([0,-90,0])
+		motor_mockup();
+	}
 
 	k=d/4+10*(2+sqrt(3));
 	for (z=[20,h-20])
