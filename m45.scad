@@ -16,10 +16,14 @@ bed_color = "#2080c0";
 extrusion_color = "#303030";
 rail_color= "#f0f0f0";
 motor_mount_color= "#606060";
+carriage_color=motor_mount_color;
+barbell_color="#f0f0f0";
 
 use <frame/vertex.scad>;
 use <motion/motor_mount_lower.scad>;
 use <motion/motor_mount_upper.scad>;
+use <motion/carriage.scad>;
+use <effector/barbell.scad>;
 
 
 module profile_2020() difference() {
@@ -53,6 +57,17 @@ for (a=[0:120:240]) rotate(a) {
 	color(rail_color)
 	translate([0,d/2,h])
 	rail_mockup();
+
+	color(carriage_color)
+	translate([10,d/2,h-30])
+	rotate(90)
+	render()
+	carriage();
+
+	color(barbell_color)
+	translate([0,d/2-12.5-10,h-30])
+	rotate([-90,0,180])
+	barbell();
 
 	translate([0,d/2+20,0])
 	color(extrusion_color)
