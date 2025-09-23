@@ -113,6 +113,8 @@ for (a=[0:120:240]) rotate(a) {
 		rotate([90,0,0])
 		render()
 		motormount();
+		nteeth=16;
+		translate([0,(10+(nteeth-20)/PI),0])
 		translate([0.8,0,42/2])
 		rotate([0,-90,0])
 		motor_mockup();
