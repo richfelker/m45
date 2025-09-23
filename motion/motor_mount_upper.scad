@@ -17,7 +17,7 @@ linear_extrude(height=h,center=center,convexity=3)
 tdcircle(d=d,a=a,f=f);
 }
 
-module motormount() {
+module motormount(mocks=false) {
 
 	translate([0,0,-(10+(nteeth-20)/PI)])
 	difference() {
@@ -25,23 +25,25 @@ module motormount() {
 		union(){
 			intersection() {
 				union() {
-					// motor
-					%translate([motor_offset+2,42/2,0])
-					rotate([0,90,0])
-					cylinder(d=5,h=18);
-					%translate([motor_offset,42/2,0])
-					rotate([0,90,0])
-					cylinder(d=22,h=2);
+					if (mocks) {
+						// motor
+						%translate([motor_offset+2,42/2,0])
+						rotate([0,90,0])
+						cylinder(d=5,h=18);
+						%translate([motor_offset,42/2,0])
+						rotate([0,90,0])
+						cylinder(d=22,h=2);
 
-					// pseudo pulley
-					%translate([3,42/2,0])
-					rotate([0,90,0])
-					pulley();
+						// pseudo pulley
+						%translate([3,42/2,0])
+						rotate([0,90,0])
+						pulley();
 
-					// double shear bearing
-					%translate([19.3,42/2,0])
-					rotate([0,90,0])
-					cylinder(d=13,h=4);
+						// double shear bearing
+						%translate([19.3,42/2,0])
+						rotate([0,90,0])
+						cylinder(d=13,h=4);
+					}
 
 					// bottom
 					translate([-20,-8,-42/2])
@@ -157,7 +159,7 @@ module motormount() {
 //rotate(-135)
 rotate([90,0,0])
 {
-motormount();
+motormount(mocks=true);
 
 // 2040
 %
