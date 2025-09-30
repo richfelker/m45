@@ -17,14 +17,14 @@ sizes/number of fastners and belt/pulley size.
 ### Motion system
 
 - 450 mm MGN12C rails (3)
-- 1100 mm GT3 belts (3)
+- GT2 belts, 6mm (3 pieces, 1100 mm each)
 - Optical endstops (3) ("RAMPS 1.4" module, 33.12x10.13 mm board, 19 mm M3 hole spacing)
 - SeeMeCNC aluminum delta joint barbells (6, sold as a set)
 - Extension springs - 0.8 mm wire diameter, 6 mm OD, 25 mm length (6)
 - 246 mm carbon fiber tubes, 6 mm OD, 4 mm ID (6)
 - 42-34 0.8A NEMA17 stepper motors (6)
 - 16T GT2 pulleys for 6mm belt (6)
-- 20T GT2 idler for 9mm belt (3)
+- 20T GT2 toothed idler for 6mm belt (3)
 
 Motion system - top hardware
 
