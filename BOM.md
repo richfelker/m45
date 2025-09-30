@@ -38,7 +38,7 @@ Motion system - bottom hardware
 - M5 socket head screws (B) (2x3)
 - 8mm M3 socket head screws (2x3)
 - M3 T nuts (2x3)
-- MR105ZZ (5x10x3) bearings (3)
+- MF148ZZ (8x14x4) flanged bearings (3)
 
 Motion system - carriage hardware
 
