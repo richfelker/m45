@@ -89,9 +89,6 @@ module screwhole(d1,d2=d1,l1,l2,a) {
 }
 
 
-*translate([0,0,-33])
-color("red")
-cylinder(d=5,h=15);
 
 module carriage() union() {
 difference() {
@@ -263,21 +260,13 @@ module flag_profile_2() {
 	belt_teardrop_profile();
 }
 
+use <../effector/barbell.scad>
+use <belt_path.scad>;
+belt_distance=5;
+belt_width=6;
+
 rotate($preview ? [0,0,0] : [90,0,180]) {
 carriage();
-
-
-if (false) {
-//tabs
-translate([3.15-3,-11.1,34/2+14-0.8])
-cube([6,0.6,0.8]);
-translate([3.15-3,-11.1,-34/2])
-cube([6,0.6,0.8]);
-for (i=[-1,1])
-translate([3.15+0.6,-11.1+0.3,i*6+7])
-rotate([0,-30*i,0])
-cube([10,0.6,0.8],center=true);
-}
 
 // 2040
 *%translate([40/2,20/2,0])
@@ -286,6 +275,16 @@ cube([40,20,200],center=true);
 // block
 *%translate([-13,-3.5])
 cube([10,27,20]);
+
+// optical endstop clearance
+%translate([-13-6.5-11,10,17])
+translate([0,-1.5,0])
+cube([4,3,6.5]);
+
+// barbell
+%translate([-13-5.5-7/2,10,0])
+rotate([90,180,-90])
+barbell();
 
 // belt path
 if ($preview) {
@@ -297,30 +296,6 @@ if ($preview) {
 }
 
 
-
-use <belt_path.scad>;
-
-// 13.7-11.3 = 2.4
-
-belt_distance=5;
-belt_width=6;
-idler_x=10;
-idler_y=25;
-belt_pld=0.254;
-
-
-%translate([-13-6.5-11,10,17])
-translate([0,-1.5,0])
-cube([4,3,6.5]);
-
-
-*translate([-13-5.5-7/2,10,0])
-rotate([90,180,-90])
-barbell();
-
-module barbell()
-translate([32003.430664,-745.6175535,-9.48/2])
-import("barbell.stl");
 
 
 $fs=.2;
