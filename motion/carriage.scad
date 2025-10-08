@@ -42,7 +42,7 @@ module profile() {
 
 module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
 
-module screwhole_old(d1,d2=d1,l1,l2) {
+module screwhole_old(d1,d2,l1,l2) {
 	for (i=[0,1])
 	translate([0,0,i*l1])
 	mirror([0,0,i])
@@ -69,7 +69,7 @@ linear_extrude(height=h,center=center,convexity=3)
 tdcircle(d=d,a=a,f=f);
 }
 
-module screwhole(d1,d2=d1,l1,l2,a) {
+module screwhole(d1,d2,l1,l2,a) {
 	f2=sqrt(2)*(1+1/1.5)/2;
 	for (i=[0,1])
 	translate([0,0,i*l1])
