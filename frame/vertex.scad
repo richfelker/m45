@@ -1,6 +1,9 @@
 // Positional variant
 position="lower"; // [ "lower", "upper" ]
 
+// Orient to print
+print_orientation=true;
+
 // Side clearance for extrusion slots
 sc=0.025;
 
@@ -283,9 +286,14 @@ module vertex_block() {
 	}
 }
 
-
-if (position=="upper") top_vertex();
-else if (position=="lower") vertex();
+if (position=="upper") {
+	rotate(print_orientation ? [-45,0,0] : 0)
+	rotate(print_orientation ? [0,180,0] : 0)
+	top_vertex();
+} else if (position=="lower") {
+	rotate(print_orientation ? [-45,0,0] : 0)
+	vertex();
+}
 
 
 $fs = .2;
