@@ -1,3 +1,6 @@
+// Positional variant
+position="lower"; // [ "lower", "upper" ]
+
 // Side clearance for extrusion slots
 sc=0.025;
 
@@ -281,10 +284,8 @@ module vertex_block() {
 }
 
 
-
-top_vertex();
-*vertex();
-
+if (position=="upper") top_vertex();
+else if (position=="lower") vertex();
 
 
 $fs = .2;
