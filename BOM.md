@@ -68,7 +68,7 @@ CPAP hose lengths.
 - 14mm M3 screws (effector barbells) (6)
 - 20mm M3 socket head screws (lower motor mounts) (9)
 - 6mm M2.5 button head screws (VolcoMosq to effector plate) (2)
-- 10mm M2.5 button head screws (carriage belt coupling) (21)
+- 12mm M2.5 button head screws (carriage belt coupling) (21)
 - 16mm M2.5 button head screws (hotend fan and frame) (4)
 
 ### Extruder
