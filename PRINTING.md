@@ -54,6 +54,21 @@ running at 48V, motor mounts should be expected to handle at least
 components should only see ambient/enclosure temperature.
 
 
+## Specific Ball Cup Requirements
+
+The ball cup ends for the delta arms MUST NOT be printed in abrasive
+materials. No glass or carbon fiber fills. They pivot on precision
+machined aluminum balls, and if they are abrasive, they will quickly
+ruin the balls.
+
+For smooth operation, it is recommended to print them with 0.1 mm
+layer height.
+
+For maximum rigidity, it is recommended to use 100% rectilinear infill
+in alternating directions and just 2 perimeters, rather than using a
+larger number of perimeters to make the part solid.
+
+
 ## OpenSCAD Usage
 
 Until there are packaged releases with prebuilt STL files, parts need
