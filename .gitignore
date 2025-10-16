@@ -1,0 +1,7 @@
+*.stl
+*.dxf
+
+/VERSION.txt
+/archive.tar
+
+.*.swp

@@ -1,0 +1,25 @@
+---
+on:
+  workflow_dispatch:
+  push:
+
+name: SCAD Build
+
+jobs:
+  build_scad:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscad make tar
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        run: |
+          make ARCHIVE_OUT=m45.tar
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          path: m45.tar
+          name: m45.tar
